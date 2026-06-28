@@ -1,8 +1,8 @@
 #import "@preview/tidy:0.4.3"
-#import "../src/tybloch.typ"
+#import "/src/tybloch.typ"
 
 #let main-module = tidy.parse-module(
-  read("../src/tybloch.typ"),
+  read("/src/tybloch.typ"),
   scope: (tybloch: tybloch),
 )
 #let util-module = tidy.parse-module(read("../src/utils.typ"))

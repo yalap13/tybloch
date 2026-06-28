@@ -6,4 +6,4 @@ authors = ["Yannick Lapointe <https://github.com/yalap13>"]
 license = "MIT"
 description = "An easy way to plot states on a Bloch sphere."
 repository = "https://github.com/yalap13/tybloch.git"
-exclude = ["*.pdf", ".git", ".DS_Store"]
+exclude = ["*.pdf", "docs/", ".git"]

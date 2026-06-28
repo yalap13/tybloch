@@ -26,7 +26,7 @@
   /// Color for the state vector
   /// -> color
   state-color: purple,
-  /// Wheter to show the projection of the state vector on the XY plane.
+  /// Whether to show the projection of the state vector on the XY plane.
   /// -> bool
   show-projections: true,
 ) = {
