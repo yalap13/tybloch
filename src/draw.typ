@@ -1,7 +1,7 @@
 #import calc: round
 #import "@preview/cetz:0.5.2"
 #import "@preview/physica:0.9.8": ket
-#import "utils.typ": linspace, spherical-to-cartesian
+#import "utils.typ": linspace, scalar-prod, spherical-linear-interpolation, spherical-to-cartesian
 
 
 // Draws the axes and dashed circles for the three planes
@@ -68,14 +68,14 @@
 
 
 // Draws the state at given coordinates
-#let _draw-state(x, y, z, color: red, show-projecttions: true) = {
+#let _draw-state(x, y, z, color: red, show-projections: true) = {
   import cetz.draw: line
 
   // The state
   line((0, 0, 0), (x, y, z), stroke: color, mark: (end: ")>"), fill: color, name: "state")
 
   // Projections
-  if show-projecttions {
+  if show-projections {
     if round(z, digits: 2) != 0 {
       line(
         (0, 0, 0),
@@ -116,19 +116,11 @@
   /// -> bool
   show-projections,
 ) = {
-  let (r-i, theta-i, phi-i) = start-state
-  let (r-f, theta-f, phi-f) = end-state
-  let r-range = linspace(r-i * 2, r-f * 2, number-of-shadows)
-  let theta-range = linspace(theta-i, theta-f, number-of-shadows)
-  let phi-range = linspace(phi-i, phi-f, number-of-shadows)
+  let states = spherical-linear-interpolation(start-state, end-state, number-of-shadows)
   let opacity-range = linspace(70%, 0%, number-of-shadows)
   for i in range(number-of-shadows) {
-    let coords = spherical-to-cartesian(r-range.at(i), theta-range.at(i), phi-range.at(i))
-    _draw-state(
-      ..coords,
-      color: state-color.transparentize(opacity-range.at(i)),
-      show-projecttions: show-projections,
-    )
+    let state = scalar-prod(states.at(i), 2)
+    _draw-state(..state, color: state-color.transparentize(opacity-range.at(i)), show-projections: false)
   }
 }
 
@@ -156,7 +148,7 @@
       if evolution {
         _draw-state-evolution((r, theta, phi), end-state, number-of-shadows, state-color, show-projections)
       } else {
-        _draw-state(x, y, z, color: state-color, show-projecttions: show-projections)
+        _draw-state(x, y, z, color: state-color, show-projections: show-projections)
       }
     },
   )

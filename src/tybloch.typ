@@ -34,7 +34,8 @@
 }
 
 
-/// Draws the evolution from an initial start vector to a final state.
+/// Draws the evolution from an initial start vector to a final state using
+/// spherical linear interpolation (slerp).
 ///
 /// *Example*
 /// ```example
