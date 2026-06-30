@@ -19,18 +19,34 @@ The ``bloch-from-spherical`` function plots a single state vector at the given s
 )
 ```
 
-The ``bloch-state-evolution`` functions shows the evolution between an initial state vector and a final state vector.
+The ``bloch-state-linear-evolution`` functions shows the evolution between an initial state vector and a final state vector.
 
-![bloch-state-evolution](docs/images/bloch-state-evolution.png)
+![bloch-state-evolution](docs/images/bloch-state-linear-evolution.png)
 
 ```typ
-#import "@preview/tybloch:0.1.0": bloch-state-evolution
+#import "@preview/tybloch:0.1.0": bloch-state-linear-evolution
 
-#bloch-state-evolution(
+#bloch-state-linear-evolution(
     (1, 0deg, 0deg),
     (1, 90deg, 90deg),
     number-of-shadows: 9,
     state-color: purple,
+)
+```
+
+The ``bloch-state-rotation-evolution`` functions shows the evolution for an initial state vector rotating around a given
+rotation axis for a total rotation angle.
+
+![bloch-state-evolution](docs/images/bloch-state-rotation-evolution.png)
+
+```typ
+#import "@preview/tybloch:0.1.0": bloch-state-rotation-evolution
+
+#bloch-state-rotation-evolution(
+  (1, 25deg, 90deg),
+  (0deg, 0deg),
+  360deg,
+  number-of-shadows: 11,
 )
 ```
 

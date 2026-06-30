@@ -34,14 +34,14 @@
 }
 
 
-/// Draws the evolution from an initial start vector to a final state using
+/// Draws the evolution from an initial vector to a final state using
 /// spherical linear interpolation (slerp).
 ///
 /// *Example*
 /// ```example
-/// #import tybloch: bloch-state-evolution
+/// #import tybloch: bloch-state-linear-evolution
 ///
-/// #bloch-state-evolution(
+/// #bloch-state-linear-evolution(
 ///   (1, 0deg, 0deg),
 ///   (1, 90deg, 90deg),
 ///   number-of-shadows: 9,
@@ -49,7 +49,7 @@
 /// ```
 ///
 /// -> content
-#let bloch-state-evolution(
+#let bloch-state-linear-evolution(
   /// Initial state as an array of `(r, theta, phi)`
   /// -> array
   initial-state,
@@ -67,8 +67,53 @@
     ..initial-state,
     state-color,
     false,
-    end-state: final-state,
+    final-state: final-state,
     evolution: true,
+    number-of-shadows: number-of-shadows,
+  )
+}
+
+/// Draws the evolution of an initial state around a given rotation axis using
+/// Rodrigues' rotation formula.
+///
+/// *Example*
+/// ```example
+/// #import tybloch: bloch-state-rotation-evolution
+///
+/// #bloch-state-rotation-evolution(
+///   (1, 25deg, 90deg),
+///   (0deg, 0deg),
+///   360deg,
+///   number-of-shadows: 11,
+/// )
+/// ```
+///
+/// -> content
+#let bloch-state-rotation-evolution(
+  /// Initial state as an array of `(r, theta, phi)`
+  /// -> array
+  initial-state,
+  /// Rotation axis as an array of `(theta, phi)`
+  /// -> array
+  rotation-axis,
+  /// Total rotation angle
+  /// -> angle
+  rotation-angle,
+  /// Number of shadows between initial and final state
+  /// -> int
+  number-of-shadows: 3,
+  /// Color of the state
+  /// -> color
+  state-color: purple,
+) = {
+  let rotation-axis = (1, rotation-axis.at(0), rotation-axis.at(1))
+  _draw-bloch(
+    ..initial-state,
+    state-color,
+    false,
+    evolution: true,
+    rotation-axis: rotation-axis,
+    rotation-angle: rotation-angle,
     number-of-shadows: number-of-shadows,
   )
 }

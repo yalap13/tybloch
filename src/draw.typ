@@ -1,7 +1,9 @@
 #import calc: round
 #import "@preview/cetz:0.5.2"
 #import "@preview/physica:0.9.8": ket
-#import "utils.typ": linspace, scalar-prod, spherical-linear-interpolation, spherical-to-cartesian
+#import "utils.typ": (
+  axis-rotation-interpolation, linspace, scalar-prod, spherical-linear-interpolation, spherical-to-cartesian,
+)
 
 
 // Draws the axes and dashed circles for the three planes
@@ -108,15 +110,21 @@
   /// -> array
   start-state,
   /// -> array
-  end-state,
+  final-state: none,
+  /// -> array
+  rotation-axis: none,
+  /// -> angle
+  rotation-angle: none,
   /// -> int
-  number-of-shadows,
+  number-of-shadows: none,
   /// -> color
-  state-color,
-  /// -> bool
-  show-projections,
+  state-color: none,
 ) = {
-  let states = spherical-linear-interpolation(start-state, end-state, number-of-shadows)
+  let states = if rotation-axis != none and rotation-angle != none {
+    axis-rotation-interpolation(start-state, rotation-axis, rotation-angle, number-of-shadows)
+  } else {
+    spherical-linear-interpolation(start-state, final-state, number-of-shadows)
+  }
   let opacity-range = linspace(70%, 0%, number-of-shadows)
   for i in range(number-of-shadows) {
     let state = scalar-prod(states.at(i), 2)
@@ -133,7 +141,9 @@
   state-color,
   show-projections,
   evolution: false,
-  end-state: none,
+  final-state: none,
+  rotation-axis: none,
+  rotation-angle: none,
   number-of-shadows: none,
 ) = cetz.canvas({
   import cetz.draw: circle, ortho
@@ -146,7 +156,14 @@
     {
       _draw-axes()
       if evolution {
-        _draw-state-evolution((r, theta, phi), end-state, number-of-shadows, state-color, show-projections)
+        _draw-state-evolution(
+          (r, theta, phi),
+          final-state: final-state,
+          rotation-axis: rotation-axis,
+          rotation-angle: rotation-angle,
+          number-of-shadows: number-of-shadows,
+          state-color: state-color,
+        )
       } else {
         _draw-state(x, y, z, color: state-color, show-projections: show-projections)
       }

@@ -60,6 +60,14 @@
   res
 }
 
+#let cross-prod(a, b) = {
+  (
+    a.at(1) * b.at(2) - a.at(2) * b.at(1),
+    a.at(2) * b.at(0) - a.at(0) * b.at(2),
+    a.at(0) * b.at(1) - a.at(1) * b.at(0),
+  )
+}
+
 #let add-vec(a, b) = {
   if a.len() != b.len() {
     panic("Both vector must be of same length")
@@ -98,4 +106,21 @@
     )
   })
   res.map(elem => scalar-prod(elem, start.at(0)))
+}
+
+#let rotate-around-axis(v, axis, angle) = {
+  let n = normalize-vec(spherical-to-cartesian(..axis))
+  let term1 = scalar-prod(v, cos(angle))
+  let term2 = scalar-prod(cross-prod(n, v), sin(angle))
+  let term3 = scalar-prod(n, dot-prod(n, v) * (1 - cos(angle)))
+  add-vec(add-vec(term1, term2), term3)
+}
+
+#let axis-rotation-interpolation(start, axis, total-angle, num) = {
+  let start-cartesian = spherical-to-cartesian(..start)
+  range(num).map(i => {
+    let t = i / (num - 1)
+    let angle = t * total-angle
+    rotate-around-axis(start-cartesian, axis, angle)
+  })
 }
