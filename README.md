@@ -6,7 +6,7 @@ Draw Bloch spheres using [cetz](https://typst.app/universe/package/cetz) in Typs
 
 The ``bloch-from-spherical`` function plots a single state vector at the given spherical coordinates.
 
-![Example of the output of the bloch-from-spherical function](docs/images/bloch-from-spherical.png)
+![Example of the output of the bloch-from-spherical function](https://github.com/yalap13/tybloch/blob/2751ca30c7ce1ec1da89e1a9fbb56e0eddae02c2/docs/images/bloch-from-spherical.png)
 
 ```typ
 #import "@preview/tybloch:0.1.0": bloch-from-spherical
@@ -21,7 +21,7 @@ The ``bloch-from-spherical`` function plots a single state vector at the given s
 
 The ``bloch-state-linear-evolution`` functions shows the evolution between an initial state vector and a final state vector.
 
-![Example of the output of the bloch-state-evolution function](docs/images/bloch-state-linear-evolution.png)
+![Example of the output of the bloch-state-linear-evolution function](https://github.com/yalap13/tybloch/blob/2751ca30c7ce1ec1da89e1a9fbb56e0eddae02c2/docs/images/bloch-state-linear-evolution.png)
 
 ```typ
 #import "@preview/tybloch:0.1.0": bloch-state-linear-evolution
@@ -37,7 +37,7 @@ The ``bloch-state-linear-evolution`` functions shows the evolution between an in
 The ``bloch-state-rotation-evolution`` functions shows the evolution for an initial state vector rotating around a given
 rotation axis for a total rotation angle.
 
-![Example of the output of the bloch-state-evolution function](docs/images/bloch-state-rotation-evolution.png)
+![Example of the output of the bloch-state-evolution function](https://github.com/yalap13/tybloch/blob/2751ca30c7ce1ec1da89e1a9fbb56e0eddae02c2/docs/images/bloch-state-rotation-evolution.png)
 
 ```typ
 #import "@preview/tybloch:0.1.0": bloch-state-rotation-evolution
